@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}Manage {{ ticket.ticket_number }} - Admin{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white">
+        <div>
+          <code class="text-warning fs-5">{{ ticket.ticket_number }}</code>
+          <h5 class="mb-0 mt-1 text-white">{{ ticket.title }}</h5>
+        </div>
+        <span class="badge bg-primary fs-6">{{ ticket.status }}</span>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <h6 class="text-muted">Description</h6>
+          <p>{{ ticket.description }}</p>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <small class="text-muted">Submitted by</small>
+            <div class="fw-bold">{{ ticket.username }}</div>
+            <small class="text-muted">{{ ticket.user_email }}</small>
+          </div>
+          <div class="col-md-4">
+            <small class="text-muted">Category</small>
+            <div><span class="badge bg-secondary">{{ ticket.category }}</span></div>
+          </div>
+          <div class="col-md-4">
+            <small class="text-muted">Priority</small>
+            <div>
+              {% if ticket.priority == 'Critical' %}<span class="badge bg-danger fs-6">Critical</span>
+              {% elif ticket.priority == 'High' %}<span class="badge bg-warning text-dark fs-6">High</span>
+              {% elif ticket.priority == 'Medium' %}<span class="badge bg-info fs-6">Medium</span>
+              {% else %}<span class="badge bg-success fs-6">Low</span>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Status -->
+    <div class="card shadow-sm border-0 mb-4 border-start border-4 border-primary">
+      <div class="card-header bg-light fw-bold"><i class="fas fa-edit me-2"></i>Update Ticket</div>
+      <div class="card-body">
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Change Status</label>
+            <select name="status" class="form-select">
+              {% for s in statuses %}
+              <option value="{{ s }}" {% if ticket.status == s %}selected{% endif %}>{{ s }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Admin Response / Comment</label>
+            <textarea name="comment" class="form-control" rows="3" placeholder="Write a response to the user..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary fw-bold">
+            <i class="fas fa-save me-2"></i>Update Ticket
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-light fw-bold"><i class="fas fa-comments me-2"></i>Comment History</div>
+      <div class="card-body">
+        {% if ticket.comments %}
+          {% for comment in ticket.comments %}
+          <div class="d-flex mb-3 {% if comment.type == 'admin' %}flex-row-reverse{% endif %}">
+            <div class="{% if comment.type == 'admin' %}bg-primary text-white{% else %}bg-light{% endif %} rounded-3 p-3" style="max-width:80%">
+              <div class="fw-bold small mb-1">
+                {{ comment.author }}
+                {% if comment.type == 'admin' %}<span class="badge bg-warning text-dark ms-1">Admin</span>{% endif %}
+              </div>
+              <div>{{ comment.text }}</div>
+              <small class="{% if comment.type == 'admin' %}text-white-50{% else %}text-muted{% endif %}">
+                {{ comment.timestamp.strftime('%d %b %Y, %H:%M') }}
+              </small>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted text-center py-3">No comments yet</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm border-0 mb-3">
+      <div class="card-header bg-light fw-bold">Ticket Info</div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-6 text-muted">Created</dt>
+          <dd class="col-6"><small>{{ ticket.created_at.strftime('%d %b %Y') }}</small></dd>
+          <dt class="col-6 text-muted">Updated</dt>
+          <dd class="col-6"><small>{{ ticket.updated_at.strftime('%d %b %Y') }}</small></dd>
+          <dt class="col-6 text-muted">Comments</dt>
+          <dd class="col-6">{{ ticket.comments|length }}</dd>
+        </dl>
+      </div>
+    </div>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary w-100">
+      <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SupportDesk - Online Support Ticket System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="landing-page">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="/"><i class="fas fa-headset me-2"></i>SupportDesk</a>
+    <div class="ms-auto">
+      <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light me-2">Login</a>
+      <a href="{{ url_for('auth.register') }}" class="btn btn-warning fw-bold">Register</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero-section text-white text-center py-5">
+  <div class="container py-5">
+    <h1 class="display-3 fw-bold mb-3"><i class="fas fa-headset me-3"></i>SupportDesk</h1>
+    <p class="lead mb-4 fs-5">Manage your support requests effortlessly. Track tickets, get updates, and resolve issues faster.</p>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-warning btn-lg fw-bold px-5 me-3">
+      <i class="fas fa-rocket me-2"></i>Get Started
+    </a>
+    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg px-5">Login</a>
+  </div>
+</section>
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">Key Features</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-4">
+          <i class="fas fa-ticket-alt fa-3x text-primary mb-3"></i>
+          <h5 class="fw-bold">Ticket Management</h5>
+          <p class="text-muted">Raise and track support tickets with priority levels and real-time status updates.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-4">
+          <i class="fas fa-tachometer-alt fa-3x text-success mb-3"></i>
+          <h5 class="fw-bold">Admin Dashboard</h5>
+          <p class="text-muted">Comprehensive admin panel with analytics, ticket management, and user oversight.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-4">
+          <i class="fas fa-bell fa-3x text-warning mb-3"></i>
+          <h5 class="fw-bold">Email Notifications</h5>
+          <p class="text-muted">Automatic email alerts when ticket status changes or new replies are added.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-4">
+          <i class="fas fa-search fa-3x text-info mb-3"></i>
+          <h5 class="fw-bold">Search & Filter</h5>
+          <p class="text-muted">Quickly find tickets using powerful search with filters by status and priority.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-4">
+          <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+          <h5 class="fw-bold">Priority Levels</h5>
+          <p class="text-muted">Set ticket urgency — Low, Medium, High, or Critical — for faster resolution.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-4">
+          <i class="fas fa-comments fa-3x text-secondary mb-3"></i>
+          <h5 class="fw-bold">Comment Thread</h5>
+          <p class="text-muted">Two-way communication between users and support staff on every ticket.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-dark text-white text-center py-4">
+  <small>© 2024 SupportDesk - BCA Mini Project | Online Support Ticket System</small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

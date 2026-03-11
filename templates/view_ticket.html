@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}{{ ticket.ticket_number }} - SupportDesk{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+          <code class="fs-5 text-primary fw-bold">{{ ticket.ticket_number }}</code>
+          <h5 class="mb-0 mt-1">{{ ticket.title }}</h5>
+        </div>
+        <div>
+          {% if ticket.status == 'Open' %}<span class="badge bg-primary fs-6">Open</span>
+          {% elif ticket.status == 'In Progress' %}<span class="badge bg-warning text-dark fs-6">In Progress</span>
+          {% else %}<span class="badge bg-success fs-6">Closed</span>{% endif %}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <h6 class="text-muted fw-bold">Description</h6>
+          <p class="mb-0">{{ ticket.description }}</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <small class="text-muted">Category</small>
+            <div class="badge bg-secondary">{{ ticket.category }}</div>
+          </div>
+          <div class="col-sm-4">
+            <small class="text-muted">Priority</small>
+            <div>
+              {% if ticket.priority == 'Critical' %}<span class="badge bg-danger">Critical</span>
+              {% elif ticket.priority == 'High' %}<span class="badge bg-warning text-dark">High</span>
+              {% elif ticket.priority == 'Medium' %}<span class="badge bg-info">Medium</span>
+              {% else %}<span class="badge bg-success">Low</span>{% endif %}
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <small class="text-muted">Created</small>
+            <div><small>{{ ticket.created_at.strftime('%d %b %Y, %H:%M') }}</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header bg-light fw-bold">
+        <i class="fas fa-comments me-2"></i>Comments & Updates
+      </div>
+      <div class="card-body">
+        {% if ticket.comments %}
+          {% for comment in ticket.comments %}
+          <div class="d-flex mb-3 {% if comment.type == 'admin' %}flex-row-reverse{% endif %}">
+            <div class="{% if comment.type == 'admin' %}bg-primary text-white{% else %}bg-light{% endif %} rounded-3 p-3 shadow-sm" style="max-width:80%">
+              <div class="fw-bold small mb-1">
+                <i class="fas {% if comment.type == 'admin' %}fa-user-shield{% else %}fa-user{% endif %} me-1"></i>
+                {{ comment.author }}
+                {% if comment.type == 'admin' %}<span class="badge bg-warning text-dark ms-1">Support</span>{% endif %}
+              </div>
+              <div>{{ comment.text }}</div>
+              <small class="{% if comment.type == 'admin' %}text-white-50{% else %}text-muted{% endif %}">
+                {{ comment.timestamp.strftime('%d %b %Y, %H:%M') }}
+              </small>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted text-center py-3"><i class="fas fa-comments fa-2x mb-2 d-block"></i>No comments yet</p>
+        {% endif %}
+      </div>
+      {% if ticket.status != 'Closed' %}
+      <div class="card-footer">
+        <form method="POST" action="{{ url_for('tickets.add_comment', ticket_id=ticket._id) }}">
+          <div class="input-group">
+            <textarea name="comment" class="form-control" rows="2" placeholder="Add a comment or update..." required></textarea>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-light fw-bold">Ticket Details</div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-5 text-muted">Submitted by</dt>
+          <dd class="col-7">{{ ticket.username }}</dd>
+          <dt class="col-5 text-muted">Email</dt>
+          <dd class="col-7"><small>{{ ticket.user_email }}</small></dd>
+          <dt class="col-5 text-muted">Status</dt>
+          <dd class="col-7">{{ ticket.status }}</dd>
+          <dt class="col-5 text-muted">Priority</dt>
+          <dd class="col-7">{{ ticket.priority }}</dd>
+          <dt class="col-5 text-muted">Last Updated</dt>
+          <dd class="col-7"><small>{{ ticket.updated_at.strftime('%d %b %Y') }}</small></dd>
+        </dl>
+      </div>
+    </div>
+    <a href="{{ url_for('tickets.my_tickets') }}" class="btn btn-outline-secondary w-100 mt-3">
+      <i class="fas fa-arrow-left me-2"></i>Back to Tickets
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+/* ─── SupportDesk CSS ─── */
+:root {
+  --primary: #0d6efd;
+  --accent: #ffc107;
+}
+
+body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+
+/* Landing Page */
+.landing-page .hero-section {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 60%, #084298 100%);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Navbar */
+.navbar-brand { font-size: 1.4rem; letter-spacing: 0.5px; }
+
+/* Cards */
+.card { border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important; }
+
+/* Badges */
+.badge { font-size: 0.78em; padding: 0.4em 0.75em; border-radius: 8px; }
+
+/* Table */
+.table thead th { font-size: 0.85rem; letter-spacing: 0.5px; text-transform: uppercase; }
+.table tbody tr:hover { background-color: rgba(13,110,253,0.04); }
+
+/* Priority colors */
+.priority-critical { border-left: 4px solid #dc3545 !important; }
+.priority-high { border-left: 4px solid #ffc107 !important; }
+.priority-medium { border-left: 4px solid #0dcaf0 !important; }
+.priority-low { border-left: 4px solid #198754 !important; }
+
+/* Footer */
+.footer { border-top: 1px solid #dee2e6; }
+
+/* Buttons */
+.btn { border-radius: 8px; }
+.btn-primary { background: #0d6efd; }
+
+/* Forms */
+.form-control, .form-select { border-radius: 8px; }
+.input-group-text { background: #e9ecef; }
+
+/* Comment bubbles */
+.comment-bubble { border-radius: 12px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-section { min-height: 40vh; }
+  .display-3 { font-size: 2rem; }
+}
+
+/* Stat cards */
+.stat-card { border-radius: 14px; transition: transform 0.2s; }
+.stat-card:hover { transform: translateY(-3px); }
+
+/* Code tags */
+code.text-primary { background: rgba(13,110,253,0.08); padding: 2px 8px; border-radius: 6px; }

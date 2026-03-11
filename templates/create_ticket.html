@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Create Ticket - SupportDesk{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-7">
+    <div class="card shadow-lg border-0">
+      <div class="card-header bg-primary text-white py-3">
+        <h4 class="mb-0 fw-bold"><i class="fas fa-plus-circle me-2"></i>Create New Support Ticket</h4>
+      </div>
+      <div class="card-body p-4">
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Issue Title <span class="text-danger">*</span></label>
+            <input type="text" name="title" class="form-control form-control-lg" 
+                   placeholder="Brief description of your issue" required maxlength="200">
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Category <span class="text-danger">*</span></label>
+              <select name="category" class="form-select" required>
+                <option value="">-- Select Category --</option>
+                {% for cat in categories %}
+                <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Priority <span class="text-danger">*</span></label>
+              <select name="priority" class="form-select" required>
+                {% for p in priorities %}
+                <option value="{{ p }}" {% if p == 'Medium' %}selected{% endif %}>{{ p }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Description <span class="text-danger">*</span></label>
+            <textarea name="description" class="form-control" rows="6" 
+                      placeholder="Provide detailed information about your issue..." required></textarea>
+            <div class="form-text">Please include steps to reproduce the issue, error messages, etc.</div>
+          </div>
+          <div class="alert alert-info border-0">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Priority Guide:</strong> Low = minor issue | Medium = affecting work | High = critical workflow | Critical = system down
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary fw-bold px-4">
+              <i class="fas fa-paper-plane me-2"></i>Submit Ticket
+            </button>
+            <a href="{{ url_for('tickets.my_tickets') }}" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
