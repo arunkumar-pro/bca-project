@@ -1,84 +1,21 @@
-# ── Python ──────────────────────────────────────────
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-.Python
-*.egg
-*.egg-info/
-dist/
-build/
-eggs/
-parts/
-var/
-sdist/
-develop-eggs/
-.installed.cfg
-lib/
-lib64/
-
-# ── Virtual Environments ────────────────────────────
-venv/
-.venv/
-env/
-.env/
-ENV/
-virtualenv/
-
-# ── Environment Variables / Secrets ─────────────────
+# Environment variables
 .env
-.env.*
-*.env
-secrets.py
-config/local.py
 
-# ── Database ─────────────────────────────────────────
-*.sqlite3
-*.db
-*.sql
+# Python cache
+__pycache__/
+*.pyc
 
-# ── Logs ─────────────────────────────────────────────
-*.log
-logs/
-log/
+# Virtual environments
+.venv/
+venv/
+env/
 
-# ── IDEs & Editors ───────────────────────────────────
-.vscode/
+# IDE files
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.swp
-*.swo
-*~
+.vscode/
 
-# ── OS Files ─────────────────────────────────────────
+# OS files
 .DS_Store
-Thumbs.db
-desktop.ini
 
-# ── Testing & Coverage ───────────────────────────────
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-nosetests.xml
-coverage.xml
-
-# ── Static / Media (if generated) ────────────────────
-staticfiles/
-mediafiles/
-media/
-
-# ── Migrations (optional — team preference) ──────────
-# migrations/   ← uncomment only if your team agrees
-
-# ── Framework-specific ───────────────────────────────
-# Django
-local_settings.py
-db.sqlite3
-
-# Flask
-instance/
-.webassets-cache
+# Logs
+*.log
